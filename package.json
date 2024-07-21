@@ -42,7 +42,7 @@
 	},
 	"type": "module",
 	"engines": {
-		"npm": "^20",
-		"node": "^9.8"
+		"node": "^20",
+		"npm": "^9.8"
 	}
 }
