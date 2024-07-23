@@ -1,7 +1,7 @@
 import { PUBLIC_FIREBASE_CONFIG } from "$env/static/public";
 import { error } from "@sveltejs/kit";
-import { initializeApp } from "firebase/app";
-import { getAuth, signInAnonymously } from "firebase/auth";
+import { initializeServerApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite";
 
 const firebase_config = JSON.parse(PUBLIC_FIREBASE_CONFIG);
@@ -15,19 +15,19 @@ export const firebaseServer = async (request: Request) => {
         error(401, 'Not Logged In!');
     }
 
-    /*const serverApp = initializeServerApp(firebase_config, {
+    const serverApp = initializeServerApp(firebase_config, {
         authIdToken
-    });*/
+    });
 
-    const serverApp = initializeApp(firebase_config);
+    //const serverApp = initializeApp(firebase_config);
 
     // auth
     const serverAuth = getAuth(serverApp);
-    //await serverAuth.authStateReady();
+    await serverAuth.authStateReady();
 
     //console.log(serverApp.settings.authIdToken)
 
-    await signInAnonymously(serverAuth);
+    //await signInAnonymously(serverAuth);
 
     if (serverAuth.currentUser === null) {
         error(401, 'Invalid Token');
