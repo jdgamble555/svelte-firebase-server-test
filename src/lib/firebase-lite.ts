@@ -1,7 +1,7 @@
 import { PUBLIC_FIREBASE_CONFIG } from "$env/static/public";
 import { error } from "@sveltejs/kit";
 import { initializeServerApp } from "firebase/app";
-import { getAuth, signInAnonymously } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite";
 
 const firebase_config = JSON.parse(PUBLIC_FIREBASE_CONFIG);
@@ -21,9 +21,7 @@ export const firebaseServer = async (request: Request) => {
 
     // auth
     const serverAuth = getAuth(serverApp);
-    //await serverAuth.authStateReady();
-
-    await signInAnonymously(serverAuth);
+    await serverAuth.authStateReady();
 
     console.log(serverApp.settings.authIdToken)
 
