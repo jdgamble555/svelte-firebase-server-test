@@ -15,6 +15,8 @@ export const firebaseServer = async (request: Request) => {
         error(401, 'Not Logged In!');
     }
 
+    console.log(authIdToken);
+
     const serverApp = initializeServerApp(firebase_config, {
         authIdToken
     });
