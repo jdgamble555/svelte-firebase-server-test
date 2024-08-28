@@ -13,6 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : null,
         redirect: request.redirect,
         credentials: request.credentials,
+        referrerPolicy: ''
     });
 
     // Proceed with the modified request
