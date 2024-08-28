@@ -2,22 +2,29 @@ import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
 
-    const { request } = event;
-    const headers = new Headers(request.headers);
-    headers.delete('referer');
-
-    // Create a new Request with the updated headers
-    event.request = new Request(request.url, {
-        method: request.method,
-        headers,
-        body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : null,
-        redirect: request.redirect,
-        credentials: request.credentials,
-        referrerPolicy: 'strict-origin-when-cross-origin'
+    const modifiedRequest = new Request(event.request.url, {
+        method: event.request.method,
+        headers: event.request.headers,
+        body: event.request.method !== 'GET' && event.request.method !== 'HEAD' ? await event.request.text() : undefined,
+        redirect: event.request.redirect,
+        credentials: event.request.credentials,
+        referrer: event.request.referrer,  // Keep the referrer
+        referrerPolicy: '',  // Clear the referrerPolicy
     });
 
-    // Proceed with the modified request
-    const response = await resolve(event);
+    // Use the modified request in the resolve call
+    const response = await resolve({
+        ...event,
+        request: modifiedRequest,
+    });
 
     return response;
+
+
+
+
+       // referrerPolicy: 'strict-origin-when-cross-origin'
+   
+
+
 };
