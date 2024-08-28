@@ -9,7 +9,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         redirect: event.request.redirect,
         credentials: event.request.credentials,
         referrer: event.request.referrer,  // Keep the referrer
-        referrerPolicy: '',  // Clear the referrerPolicy
+        referrerPolicy: 'strict-origin-when-cross-origin'
     });
 
     // Use the modified request in the resolve call
@@ -23,7 +23,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 
 
-       // referrerPolicy: 'strict-origin-when-cross-origin'
+       // 
    
 
 
