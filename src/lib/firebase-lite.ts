@@ -27,6 +27,8 @@ export const firebaseServer = async (request: Request) => {
     const serverAuth = getAuth(serverApp);
     await serverAuth.authStateReady();
 
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     //console.log(serverApp.settings.authIdToken)
 
     //await signInAnonymously(serverAuth);

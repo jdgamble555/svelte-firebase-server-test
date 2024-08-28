@@ -5,10 +5,10 @@ export const handle: Handle = async ({ event, resolve }) => {
     const modifiedRequest = new Request(event.request.url, {
         method: event.request.method,
         headers: event.request.headers,
-        body: event.request.body,  // Directly pass the body
+        body: event.request.body,
         redirect: event.request.redirect,
         credentials: event.request.credentials,
-        referrer: event.request.referrer,  // Keep the referrer
+        referrer: event.request.referrer,
         mode: event.request.mode,
         cache: event.request.cache,
         integrity: event.request.integrity,
