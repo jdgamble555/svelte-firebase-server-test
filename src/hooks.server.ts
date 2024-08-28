@@ -7,9 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         headers: event.request.headers,
         body: event.request.method !== 'GET' && event.request.method !== 'HEAD' ? await event.request.text() : undefined,
         redirect: event.request.redirect,
-        credentials: event.request.credentials,
-        referrer: event.request.referrer,  // Keep the referrer
-        referrerPolicy: 'strict-origin-when-cross-origin'
+        credentials: event.request.credentials
     });
 
     // Use the modified request in the resolve call
@@ -19,12 +17,5 @@ export const handle: Handle = async ({ event, resolve }) => {
     });
 
     return response;
-
-
-
-
-       // 
-   
-
 
 };
