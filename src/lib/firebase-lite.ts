@@ -15,8 +15,6 @@ export const firebaseServer = async (request: Request) => {
         error(401, 'Not Logged In!');
     }
 
-    console.log(authIdToken);
-
     const serverApp = initializeServerApp(firebase_config, {
         authIdToken
     });
@@ -25,7 +23,10 @@ export const firebaseServer = async (request: Request) => {
 
     // auth
     const serverAuth = getAuth(serverApp);
-    await serverAuth.authStateReady();
+    await serverAuth.authStateReady()
+        .catch((_error) => {
+            error(401, _error.message);
+        });
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
