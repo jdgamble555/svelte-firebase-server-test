@@ -30,10 +30,6 @@ export const firebaseServer = async (request: Request) => {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    //console.log(serverApp.settings.authIdToken)
-
-    //await signInAnonymously(serverAuth);
-
     if (serverAuth.currentUser === null) {
         error(401, 'Invalid Token');
     }
