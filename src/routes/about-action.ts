@@ -1,11 +1,14 @@
 import { applyAction, deserialize } from "$app/forms";
 import { invalidateAll } from "$app/navigation";
-import { auth } from "$lib/firebase";
+import { useFirebase } from "$lib/firebase";
 import { error, type ActionResult } from "@sveltejs/kit";
+import type { Auth } from "firebase/auth";
 
-export async function aboutAction(event: { currentTarget: EventTarget & HTMLFormElement }) {
-
-    const data = new FormData(event.currentTarget);
+export async function aboutAction(
+    event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement },
+    auth: Auth
+) {
+    event.preventDefault();
 
     if (!auth.currentUser) {
         error(400, 'Not Logged in!');
@@ -15,7 +18,7 @@ export async function aboutAction(event: { currentTarget: EventTarget & HTMLForm
 
     const response = await fetch(event.currentTarget.action, {
         method: 'POST',
-        body: data,
+        body: '',
         headers: {
             'Authorization': 'Bearer ' + token
         }
